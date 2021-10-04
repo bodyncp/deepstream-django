@@ -30,7 +30,7 @@
 ### 功能截图
 ![screenshot-127 0 0 1_8000-2021 10 04-15_07_03](https://user-images.githubusercontent.com/40747806/135811154-7f8d59e9-669d-4311-ac43-7db687a3efb3.png)
 
-![screenshot-127.0.0.1_8000-2021.10.04-15_07_03](D518417FF41A4302B1587E92D78F0BD9)
+![screenshot-127 0 0 1_8000-2021 10 04-15_07_21](https://user-images.githubusercontent.com/40747806/135811268-f0e5a311-eadb-431f-8414-878c9e7313d7.png)
 
 ![screenshot-127 0 0 1_8000-2021 10 04-15_07_47](https://user-images.githubusercontent.com/40747806/135811126-f041fb71-dca3-413e-9fe9-1b4f55f3c33b.png)
 
