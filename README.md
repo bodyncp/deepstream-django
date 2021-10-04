@@ -8,7 +8,7 @@
 
 ## 设计思路
 采用jetson设备边缘部署方式，以每一个边缘设备为节点进行数据采集和监控处理，如图所示:
-![title](9AEEC9AC3EEC466CAC9CBE81E2B62E21)
+![image](https://user-images.githubusercontent.com/40747806/135811095-ab259816-7da2-49ea-b38f-843762691041.png)
 
 ## 如何使用
 ### 1. 安装
@@ -28,11 +28,11 @@
 4、观察后台检测到的前端平台运行情况及视频监控流媒体调用情况，若均正常，启动完毕
 
 ### 功能截图
+![screenshot-127 0 0 1_8000-2021 10 04-15_07_03](https://user-images.githubusercontent.com/40747806/135811154-7f8d59e9-669d-4311-ac43-7db687a3efb3.png)
+
 ![screenshot-127.0.0.1_8000-2021.10.04-15_07_03](D518417FF41A4302B1587E92D78F0BD9)
 
-![screenshot-127.0.0.1_8000-2021.10.04-15_07_21](6023155A1AFA43EFBAF58FF2EC05A339)
-
-![screenshot-127.0.0.1_8000-2021.10.04-15_07_47](686B6D0B16774AC18D8AFDFCBBE8E177)
+![screenshot-127 0 0 1_8000-2021 10 04-15_07_47](https://user-images.githubusercontent.com/40747806/135811126-f041fb71-dca3-413e-9fe9-1b4f55f3c33b.png)
 
 ### 如需帮助
 联系作者邮箱：18981275647@189.cn
