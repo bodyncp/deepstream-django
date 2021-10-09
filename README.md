@@ -1,4 +1,4 @@
-# ZGDX
+# deepstream-django-check_web
 # 本项目结合多方源码实现基于web的实时目标检测系统，系统采用python3.6+deepstream5.1+django2.0实现目标检测人流、车流计数任务，实现内容如下：
 1. 分时段计数统计
 2. 数据可视化展示
