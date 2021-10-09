@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+    <div class="luffy-container">
+        <div class="btn-group" style="margin: 5px 0">
+
+            <a class="btn btn-default" href="{% url 'rbac:role_add' %}">
+                <i class="fa fa-plus-square" aria-hidden="true"></i> 添加角色
+            </a>
+
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>选项</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in roles %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.title }}</td>
+                    <td>
+
+                        <a style="color: #333333;" href="{% url 'rbac:role_edit' pk=row.id %}">
+                            <i class="fa fa-edit" aria-hidden="true"></i></a>
+
+
+                        <a style="color: #d9534f;" href="{% url 'rbac:role_del' pk=row.id %}"><i
+                                class="fa fa-trash-o"></i></a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination" style="text-align: center">
+                {{ pager.page_html|safe }}
+            </ul>
+        </nav>
+    </div>
+
+{% endblock %}

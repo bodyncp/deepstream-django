@@ -1,0 +1,6 @@
+paramiko==2.7.2
+Django==2.0
+APScheduler==2.1.2
+pandas==1.0.1
+PyMySQL==0.9.3
+pycryptodome==3.10.4

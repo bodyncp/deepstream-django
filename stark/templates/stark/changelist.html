@@ -1,0 +1,158 @@
+{#{% load staticfiles %}#}
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="luffy-container">
+
+        {% if search_group_row_list %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-filter" aria-hidden="true"></i> 快速筛选
+                </div>
+                <div class="panel-body">
+                    <div class="search-group">
+                        {% for row in search_group_row_list %}
+                            <div class="row">
+                                {% for obj in row %}
+                                    {{ obj|safe }}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if fuzzy_search_list %}
+            <div style="float: right;margin: 5px 0; margin-left: 10px">
+                <form method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input class="form-control" type="date" name="time" placeholder="时间搜索" value={{ fuzzy_time }}>
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if search_list %}
+            <div style="float: right;margin: 5px 0;">
+                <form method="GET" class="form-inline">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" value="{{ search_value }}"
+                               placeholder="搜索">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if action_dict %}
+                <div style="float: left;margin: 5px 10px 5px 0;">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <select class="form-control" name="action">
+                                <option value="">请选择操作</option>
+                                {% for func_name,func_text in action_dict.items %}
+                                    <option value="{{ func_name }}">{{ func_text }}</option>
+                                {% endfor %}
+                            </select>
+                            <input class="btn btn-primary" type="submit" value="执行"/>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if add_btn %}
+                <div style="margin: 5px 0;float: left">
+                    {{ add_btn|safe }}
+                </div>
+            {% endif %}
+
+            {% if download_btn %}
+                <div id="btn_download" style="margin: 5px 0;float: left;margin-left: 10px">
+                    {{ download_btn|safe }}
+                </div>
+            {% endif %}
+
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    {% for item in header_list %}
+                        <th>{{ item }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in body_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        {% for ele in row %}
+
+                            {% if ele|date:"Y-m-d H:i:s" %}
+                                <td>{{ ele|date:"Y-m-d H:i:s" }}</td>
+                            {% else %}
+                                <td>{{ ele }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </form>
+        <nav>
+            <ul class="pagination">
+                {{ pager.page_html|safe }}
+            </ul>
+        </nav>
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+    $("#btn_download").click(function () {
+        var flag = true;
+        if (flag) {
+            var sec = 15;
+            $("#btn_download a").attr("disabled", "readonly");
+            $("#btn_download a").text("等待" + sec + "s");
+            flag = false;
+            var intr = setInterval(function () {
+                if (sec > 0) {
+                    $("#btn_download a").text("等待" + sec + "s");
+                    $("#btn_download a").attr("href", "JavaScript:void(0);");
+                    $('#btn_download').unbind('click');
+                    sec--
+                } else {
+                    clearInterval(intr);
+                    $("#btn_download a").text("导出数据");
+                    $("#btn_download a").removeAttr("disabled");
+                    $("#btn_download a").attr("href", "/download/");
+
+                }
+            }, 1000);
+
+            var timeout = setTimeout(function () {
+                flag = true;
+                $('#btn_download').bind('click');
+            }, 15000);
+            {#clearTimeout(null)#}
+        }
+    });
+
+</script>
+{% endblock %}
+
+
+
+

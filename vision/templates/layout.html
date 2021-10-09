@@ -1,0 +1,150 @@
+{% load staticfiles %}
+{% load rbac %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>广元电信</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}">
+    <link rel="shortcut icon" href="{% static 'imgs/python.ico' %} ">
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %} "/>
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %} "/>
+    <link rel="stylesheet" href="{% static 'css/commons.css' %} "/>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %} "/>
+    <link rel="stylesheet" href="{% static 'rbac/css/rbac.css' %} "/>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .no-radius {
+            border-radius: 0;
+        }
+
+        .no-margin {
+            margin: 0;
+        }
+
+        .pg-body > .left-menu {
+            background-color: #EAEDF1;
+            position: absolute;
+            left: 1px;
+            top: 48px;
+            bottom: 0;
+            width: 220px;
+            border: 1px solid #EAEDF1;
+            overflow: auto;
+        }
+
+        .pg-body > .right-body {
+            position: absolute;
+            left: 225px;
+            right: 0;
+            top: 48px;
+            bottom: 0;
+            overflow: scroll;
+            border: 1px solid #ddd;
+            border-top: 0;
+            font-size: 13px;
+            min-width: 755px;
+        }
+
+        .navbar-right {
+            float: right !important;
+            margin-right: -15px;
+        }
+
+        .luffy-container {
+            padding: 15px;
+        }
+
+    </style>
+
+    {% block css %}{% endblock %}
+</head>
+<body>
+
+<div class="pg-header">
+    <div class="nav">
+        <div class="logo-area left ">
+            <a href="#">
+                <img class="logo" src="{% static 'imgs/title.png' %}">
+                <span style="font-size: 18px;">魔镜AI </span>
+            </a>
+        </div>
+
+        <div class="left-menu left">
+            {#            <a class="menu-item">资产管理</a>#}
+            {#            <a class="menu-item">用户信息</a>#}
+            {#            <a class="menu-item">路飞管理</a>#}
+            <a class="menu-item" style="text-align: center">魔镜AI后台</a>
+            <div class="menu-item">
+                <span>使用说明</span>
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                <div class="more-info">
+                    <a href="#" class="more-item">后期上线</a>
+                    {#                    <a href="#" class="more-item">实在是编不了</a>#}
+                </div>
+            </div>
+        </div>
+
+        <div class="right-menu right clearfix">
+
+            <div class="user-info right">
+                <a href="#" class="avatar">
+                    <img class="img-circle" src="{% static 'imgs/default.png' %}">
+                </a>
+
+                <div class="more-info">
+                    <a href="#" class="more-item">{{ users }}</a>
+                    <a href={{ user_edit_href }} class="more-item">编辑用户</a>
+                    <a href={{ rest_password }} class="more-item">重置密码</a>
+                    <a href="/logout/" class="more-item">注销</a>
+                </div>
+            </div>
+
+            <a class="user-menu right">
+                累计出流量
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                <span class="badge bg-success">{{ queryset_count_all }}</span>
+            </a>
+
+            <a class="user-menu right" href="/customer/data/display">
+                数据展示
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <span class="badge bg-success"></span>
+            </a>
+
+            <a class="user-menu right">
+                累计入流量
+                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                <span class="badge bg-danger">{{ queryset_count }}</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+<div class="pg-body">
+    <div class="left-menu">
+        <div class="menu-body">
+            {% multi_menu request %}
+        </div>
+    </div>
+    <div class="right-body">
+        <div>
+            {% breadcrumb request %}
+        </div>
+        {% block content %} {% endblock %}
+    </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.js' %} "></script>
+<script src="{% static 'rbac/js/rbac.js' %} "></script>
+
+{% block js %} {% endblock %}
+</body>
+</html>

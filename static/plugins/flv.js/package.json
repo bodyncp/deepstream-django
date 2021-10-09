@@ -1,0 +1,76 @@
+{
+  "_from": "flv.js",
+  "_id": "flv.js@1.6.2",
+  "_inBundle": false,
+  "_integrity": "sha512-xre4gUbX1MPtgQRKj2pxJENp/RnaHaxYvy3YToVVCrSmAWUu85b9mug6pTXF6zakUjNP2lFWZ1rkSX7gxhB/2A==",
+  "_location": "/flv.js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "flv.js",
+    "name": "flv.js",
+    "escapedName": "flv.js",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/flv.js/-/flv.js-1.6.2.tgz",
+  "_shasum": "fa3340fe3f7ee01d3977f7876aee66b8436e5922",
+  "_spec": "flv.js",
+  "_where": "C:\\Users\\Administrator\\Desktop\\网格",
+  "author": {
+    "name": "zheng qian",
+    "email": "xqq@xqq.im"
+  },
+  "bugs": {
+    "url": "https://github.com/Bilibili/flv.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "es6-promise": "^4.2.8",
+    "webworkify-webpack": "^2.1.5"
+  },
+  "deprecated": false,
+  "description": "HTML5 FLV Player",
+  "devDependencies": {
+    "@types/node": "^16.3.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.3",
+    "@typescript-eslint/parser": "^4.28.3",
+    "browser-sync": "^2.27.4",
+    "eslint": "^7.30.0",
+    "exports-loader": "^3.0.0",
+    "source-map-loader": "^3.0.0",
+    "terser-webpack-plugin": "^5.1.4",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^4.7.2"
+  },
+  "homepage": "https://github.com/Bilibili/flv.js#readme",
+  "keywords": [
+    "html5",
+    "flv",
+    "mse",
+    "javascript"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/flv.js",
+  "name": "flv.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bilibili/flv.js.git"
+  },
+  "scripts": {
+    "build": "webpack --mode=production --progress",
+    "build:debug": "webpack --mode=development --progress",
+    "dev": "webpack --mode=development --progress --watch",
+    "dtslint": "dtslint types"
+  },
+  "types": "./d.ts/flv.d.ts",
+  "version": "1.6.2"
+}

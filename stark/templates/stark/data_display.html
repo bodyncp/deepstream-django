@@ -1,0 +1,389 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 10px;">
+        <div class="row">
+            <div id="points" style="width: 100%;height: 450px"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div id="hour" style="width: 100%;height: 450px"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="day" style="width: 100%;height: 450px"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div id="month" style="width: 100%;height: 450px"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="year" style="width: 100%;height: 450px"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'plugins/bootstrap/js/echarts.min.js' %} "></script>
+    <script>
+
+        $(function () {
+            $.ajax({
+                url: "/customer/data/display/api",
+                type: "get",
+                dataType: "json",
+                success: function (data_obj) {
+                    var myChart_hour = echarts.init(document.getElementById('hour'));
+                    option_hour = {
+                        legend: {},
+                        title: {text: '时段统计'},
+                        grid: {//直角坐标系内绘图网格
+                            show: true,//是否显示直角坐标系网格。[ default: false ]
+                            left: "20%",//grid 组件离容器左侧的距离。
+                            right: "30px",
+                            borderColor: "#c45455",//网格的边框颜色
+                            bottom: "20%" //
+                        },
+                        tooltip: {
+                            title: {
+                                show: true,
+                                text: "当日流量统计",
+                            }
+                        },
+                        dataset: {
+                            dimensions: ['product', '入流量', '出流量'],
+                            source: data_obj.hour_data
+                        },
+                        xAxis: {
+                            type: 'category',
+                            nameLocation: 'end',
+                            axisLabel: {//坐标轴刻度标签的相关设置。
+                                interval: 0,
+                                rotate: "45"
+                            }
+                        },
+                        yAxis: {},
+                        // Declare several bar series, each will be mapped
+                        // to a column of dataset.source by default.
+                        series: [{type: 'bar'}, {type: 'bar'}]
+                    };
+                    myChart_hour.setOption(option_hour);
+
+                    var myChart_day = echarts.init(document.getElementById('day'));
+                    option_day = {
+                        title: {text: '当日统计'},
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            top: '5%',
+                            left: 'center'
+                        },
+                        series: [
+                            {
+                                name: '今日进出流量统计',
+                                type: 'pie',
+                                radius: ['40%', '70%'],
+                                avoidLabelOverlap: false,
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                data: data_obj.day_data
+                            }
+                        ]
+                    };
+                    myChart_day.setOption(option_day);
+
+                    var myChart_month = echarts.init(document.getElementById('month'));
+                    option_month = {
+                        title: {
+                            text: '月流量统计'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['入流量', '出流量']
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: data_obj.month_data[0]
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                                name: '入流量',
+                                type: 'line',
+                                stack: 'Total',
+                                data: data_obj.month_data[1]
+                            },
+                            {
+                                name: '出流量',
+                                type: 'line',
+                                stack: 'Total',
+                                data: data_obj.month_data[2]
+                            }
+                        ]
+                    };
+
+                    myChart_month.setOption(option_month);
+                    yeart_list = [];
+                    in_yeart_list = [];
+                    out_yeart_list = [];
+                    for (var i in data_obj.year_data) {
+                        yeart_list.push(data_obj.year_data["years_data"][0][0]);
+                        in_yeart_list.push(data_obj.year_data["years_data"][0][1]);
+                        out_yeart_list.push(data_obj.year_data["years_data"][0][2])
+                    }
+
+                    var app = {};
+                    var myChart_year = echarts.init(document.getElementById('year'));
+                    var option_year;
+
+                    const posList = [
+                        'left',
+                        'right',
+                        'top',
+                        'bottom',
+                        'inside',
+                        'insideTop',
+                        'insideLeft',
+                        'insideRight',
+                        'insideBottom',
+                        'insideTopLeft',
+                        'insideTopRight',
+                        'insideBottomLeft',
+                        'insideBottomRight'
+                    ];
+                    app.configParameters = {
+                        rotate: {
+                            min: -90,
+                            max: 90
+                        },
+                        align: {
+                            options: {
+                                left: 'left',
+                                center: 'center',
+                                right: 'right'
+                            }
+                        },
+                        verticalAlign: {
+                            options: {
+                                top: 'top',
+                                middle: 'middle',
+                                bottom: 'bottom'
+                            }
+                        },
+                        position: {
+                            options: posList.reduce(function (map, pos) {
+                                map[pos] = pos;
+                                return map;
+                            }, {})
+                        },
+                        distance: {
+                            min: 0,
+                            max: 100
+                        }
+                    };
+                    app.config = {
+                        rotate: 90,
+                        align: 'left',
+                        verticalAlign: 'middle',
+                        position: 'insideBottom',
+                        distance: 15,
+                        onChange: function () {
+                            const labelOption = {
+                                rotate: app.config.rotate,
+                                align: app.config.align,
+                                verticalAlign: app.config.verticalAlign,
+                                position: app.config.position,
+                                distance: app.config.distance
+                            };
+                            myChart_year.setOption({
+                                series: [
+                                    {
+                                        label: labelOption
+                                    },
+                                    {
+                                        label: labelOption
+                                    }
+                                ]
+                            });
+                        }
+                    };
+                    const labelOption = {
+                        show: true,
+                        position: app.config.position,
+                        distance: app.config.distance,
+                        align: app.config.align,
+                        verticalAlign: app.config.verticalAlign,
+                        rotate: app.config.rotate,
+                        formatter: '{c}  {name|{a}}',
+                        fontSize: 16,
+                        rich: {
+                            name: {}
+                        }
+                    };
+
+                    option_year = {
+                        title: {
+                            text: '逐年流量统计'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['入流量', '出流量']
+                        },
+                        toolbox: {
+                            show: true,
+                            orient: 'vertical',
+                            left: 'right',
+                            top: 'center',
+                            feature: {
+                                mark: {show: true},
+                                dataView: {show: true, readOnly: false},
+                                magicType: {show: true, type: ['line', 'bar', 'stack']},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+
+                        xAxis: [
+                            {
+                                type: 'category',
+                                axisTick: {show: false},
+                                data: yeart_list
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '入流量',
+                                type: 'bar',
+                                barGap: 0,
+                                label: labelOption,
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: in_yeart_list
+                            },
+                            {
+                                name: '出流量',
+                                type: 'bar',
+                                label: labelOption,
+                                emphasis: {
+                                    focus: 'series'
+                                },
+                                data: out_yeart_list
+                            }
+                        ]
+                    };
+                    option_year && myChart_year.setOption(option_year);
+
+                    var myChart_points = echarts.init(document.getElementById('points'));
+                    name_list = [];
+                    in_list = [];
+                    out_list = [];
+                    for (var j in data_obj.points_data_list){
+                        name_list.push(data_obj.points_data_list[j][0]);
+                        in_list.push(data_obj.points_data_list[j][1]);
+                        out_list.push(data_obj.points_data_list[j][2])
+                    }
+
+                    option_points = option = {
+                        title: {
+                            text: '各点位流量统计'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        legend: {},
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: name_list
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [0, 0.01]
+                        },
+                        series: [
+                            {
+                                name: '入流量',
+                                type: 'bar',
+                                data: in_list,
+                                stack: 'x'
+                            },
+                            {
+                                name: '出流量',
+                                type: 'bar',
+                                data: out_list,
+                                stack: 'x'
+                            }
+                        ]
+                    };
+                    myChart_points.setOption(option_points)
+                }
+            })
+        })
+
+
+    </script>
+{% endblock %}

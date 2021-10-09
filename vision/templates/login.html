@@ -1,0 +1,203 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- meta data -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--font-family-->
+    <link href="{% static 'assets/css/login.css' %}"
+          rel="stylesheet">
+
+    <!-- title of site -->
+    <title>登录页面</title>
+
+    <!-- For favicon png -->
+    <link rel="shortcut icon" type="image/icon" href="{% static 'imgs/python.ico' %}"/>
+
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+
+    <!--animate.css-->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="{% static 'stark/plugins/bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootsnav.css' %}">
+
+    <!--style.css-->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <!--responsive.css-->
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+<body>
+<!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+<!-- signin end -->
+<section class="signin popup-in">
+    <div class="container">
+
+        <div class="sign-content popup-in-content">
+            <div class="popup-in-txt">
+                <h2>魔镜AI</h2>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="signin-form">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="user">用户名</label>
+                                    <input type="text" class="form-control" id="user" placeholder="用户名" name="user" style="text-transform:none;">
+                                </div><!--/.form-group -->
+                                <div class="form-group">
+                                    <label for="pwd">password</label>
+                                    <input type="password" class="form-control" id="pwd" placeholder="密码" name="pwd">
+                                </div><!--/.form-group -->
+                                                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="signin-password">
+                            <div class="awesome-checkbox-list">
+                                <ul class="unstyled centered">
+
+                                    <li>
+                                        <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox"
+                                               value="value2">
+                                        <label for="styled-checkbox-2">记住密码</label>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"></a>
+                                    </li>
+
+                                </ul>
+                            </div><!--/.awesome-checkbox-list -->
+                        </div><!--/.signin-password -->
+                    </div><!--/.col -->
+                </div><!--/.row -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span style="color: red">{{ msg }}</span>
+                                        <div class="signin-footer">
+                                            <button type="submit" class="btn signin_btn">
+                                                登录
+                                            </button>
+                                            <p>
+                                                没有账号？
+                                                <a href="#">联系管理员</a>
+                                            </p>
+                                            <div style="text-align: center">
+                                                <a style="color: #DCDCDC; text-decoration: none"
+                                                   href="http://beian.miit.gov.cn/"
+                                                   target="_blank">蜀ICP备20006647号-1</a>
+                                            </div>
+                                        </div><!--/.signin-footer -->
+                                    </div><!--/.col-->
+                                </div><!--/.row -->
+                            </form><!--/form -->
+                        </div><!--/.signin-form -->
+                    </div><!--/.col -->
+                </div><!--/.row -->
+            </div><!-- .popup-in-txt -->
+        </div><!--/.sign-content -->
+    </div><!--/.container -->
+
+</section><!--/.signin -->
+
+<!-- signin end -->
+
+<!--footer copyright start -->
+<footer class="footer-copyright">
+    <div id="scroll-Top">
+        <i class="fa fa-angle-double-up return-to-top" id="scroll-top" data-toggle="tooltip" data-placement="top"
+           title="" data-original-title="Back to Top" aria-hidden="true"></i>
+    </div><!--/.scroll-Top-->
+
+</footer><!--/.hm-footer-copyright-->
+<!--footer copyright  end -->
+
+
+<!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+<script src="{% static 'assets/js/jquery.js' %}"></script>
+
+<!--modernizr.min.js-->
+<script src="{% static 'js/modernizr.min.js' %}"></script>
+
+<!--bootstrap.min.js-->
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+<!-- bootsnav js -->
+<script src="{% static 'assets/js/bootsnav.js' %}"></script>
+
+<!-- jquery.sticky.js -->
+<script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+<script src="{% static 'js/jquery.easing.min.js' %}"></script>
+
+
+<!--Custom JS-->
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script>
+    $(function () {
+        var phone_number = localStorage.getItem("phone_number");
+        var password = localStorage.getItem("remember_password");
+        var flag = localStorage.getItem("remember_password_flag");
+        if (flag) {
+            $('#styled-checkbox-2').prop('checked',true);
+        }
+
+        if (phone_number){
+            $("#user").val(phone_number);
+            $("#pwd").val(password)
+        }else {
+            $("#user").val("");
+            $("#pwd").val("")
+        }
+
+    });
+    
+    $("button").click(function () {
+        var phone_number = $("#user").val();
+        var password = $("#pwd").val();
+        var flag = localStorage.getItem("remember_password_flag");
+        localStorage.setItem("phone_number", phone_number);
+        if (flag) {
+            localStorage.setItem("remember_password", password);
+        }else {
+            localStorage.removeItem("remember_password")
+        }
+    });
+    
+    $("#styled-checkbox-2").click(function () {
+        if ($(this).is(":checked")== true) {
+            var pwd_flag = true;
+            localStorage.setItem("remember_password_flag", pwd_flag);
+        }else {
+            $("#pwd").val("");
+            localStorage.removeItem("remember_password_flag");
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
