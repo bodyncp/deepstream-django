@@ -146,35 +146,6 @@ MEDIA_URL = '/media/'
 # 用户权限
 RBAC_USER_MODLE_CLASS = "vision.models.UserInfoExtent"
 
-# 路由自动发现排除扫描的url
-AUTO_DISCOVER_EXCLUDE = [
-    '/admin/.*',
-    '/static/.*',
-    '/login/',
-    '/logout/',
-    '/index/',
-    '/favicon.ico',
-    '/stark/registers/person_count_info/.*',
-    '/customer/point_url/api/v1/get/'
-]
-
-# 需登录但是无需权限的URL
-NO_PERMISSION_LIST = [
-    '/index/',
-    '/logout/',
-]
-
-# 路由白名单
-# 无登录就能访问的URL
-VALID_URL_LIST = [
-    '/login/',
-    '/logout/',
-    '/favicon.ico',
-    '/static/.*',
-    '/stark/registers/person_count_info/.*',
-    '/customer/point_url/api/v1/get/'
-]
-
 # 权限、菜单key
 PERMISSION_SESSION_KEY = "luffy_permission_url_list_key"
 MENU_SESSION_KEY = "luffy_permission_menu_key"
