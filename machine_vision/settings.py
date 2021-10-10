@@ -20,8 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_a^7$oa*srm&!(uu6vmuc++b(fyo=plwk(40*ymy(ot(gz=^x3'
-AUTH_KEY = 'gydx@123'
-RTMP_SERVER_KEY = 'gydx2021secretkey'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -225,5 +223,10 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 #         },
 #     },
 # }
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
 
 
